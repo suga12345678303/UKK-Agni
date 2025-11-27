@@ -25,7 +25,11 @@
                 </div>
                 <p>Aplikasi ini membantu Anda untuk mengelola dan mengarsipkan kuitansi atau bukti transaksi digital Anda dengan mudah. Anda dapat menambahkan, melihat, mengubah, dan menghapus data kuitansi.</p>
                 <p>Untuk memulai, silakan klik tombol di bawah ini untuk melihat atau menambahkan data kuitansi baru.</p>
+                @if(auth()->user()->role == 'admin')
                 <a rel="nofollow" href="{{ route('receipts.index') }}">Lihat Data Kuitansi →</a>
+                @else
+                <a rel="nofollow" href="{{ route('user.index') }}">Lihat Data Kuitansi →</a>
+                @endif
             </div>
         </div>
 

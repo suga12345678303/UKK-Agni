@@ -15,33 +15,26 @@ class SessionController extends Controller
         return view('sesi/index');
     }
     
-    public function login(Request $request){
-        Session::flash('email', $request->email);
+    public function login(Request $request)
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
 
-        // PERBAIKAN #1: Validasi dengan pesan error yang benar
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ], [
-            'email.required' => 'Enter Your Email!!',
-            'email.email' => 'Email format is invalid!!',
-            'password.required' => 'Enter Your Password!!',
-        ]);
-
-        $infologin = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
         
-        if(Auth::attempt($infologin)){
-            $request->session()->regenerate(); // Security
-            // PERBAIKAN #2: Redirect ke '/' bukan 'Digital receipts'
-            return redirect('/')->with('success', 'Login Successful');
+        // Redirect berdasarkan role
+        if (auth()->user()->role == 'admin') {
+            return redirect('/receipts'); // Halaman admin
         } else {
-            // PERBAIKAN #3: Pakai 'error' bukan 'Success'
-            return redirect('sesi')->with('error', 'Username Or Password Incorrect');
+            return redirect('/user'); // Halaman user
         }
     }
+
+    return back()->with('error', 'Email atau password salah!');
+}
     
     // PERBAIKAN #4: Logout lebih secure
     public function logout(Request $request){

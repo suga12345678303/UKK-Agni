@@ -26,7 +26,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-file-invoice-dollar"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Arsip Kuitansi</div>
+                <div class="sidebar-brand-text mx-3">Arsip Kwitansi</div>
             </a>
 
             <!-- Divider -->
@@ -48,11 +48,24 @@
             </div>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item {{ request()->routeIs('receipts.*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('receipts.index') }}">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Data Kuitansi</span></a>
-            </li>
+            @if(auth()->user()->role == 'admin')
+    <!-- Menu untuk Admin -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('receipts.index') }}">
+            <i class="fas fa-fw fa-receipt"></i>
+            <span>Kelola Kuitansi</span>
+        </a>
+    </li>
+    @else
+    <!-- Menu untuk User -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('user.index') }}">
+            <i class="fas fa-fw fa-eye"></i>
+            <span>Lihat Kuitansi</span>
+        </a>
+    </li>
+@endif
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -84,8 +97,13 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if(auth()->user()->role == 'admin')
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                                 <i class="fas fa-user-circle fa-2x"></i>
+                                @else
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">User</span>
+                                <i class="fas fa-user-circle fa-2x"></i>
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
