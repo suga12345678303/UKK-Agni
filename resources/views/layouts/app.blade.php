@@ -36,7 +36,8 @@
             <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('/') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Dashboard</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -48,24 +49,23 @@
             </div>
 
             <!-- Nav Item - Tables -->
-            @if(auth()->user()->role == 'admin')
-    <!-- Menu untuk Admin -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('receipts.index') }}">
-            <i class="fas fa-fw fa-receipt"></i>
-            <span>Kelola Kuitansi</span>
-        </a>
-    </li>
-    @else
-    <!-- Menu untuk User -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('user.index') }}">
-            <i class="fas fa-fw fa-eye"></i>
-            <span>Lihat Kuitansi</span>
-        </a>
-    </li>
-@endif
-
+            @if(auth()->check() && auth()->user()->role == 'admin')
+                <!-- Menu untuk Admin -->
+                <li class="nav-item {{ request()->is('receipts*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('receipts.index') }}">
+                        <i class="fas fa-fw fa-receipt"></i>
+                        <span>Kelola Kuitansi</span>
+                    </a>
+                </li>
+            @elseif(auth()->check())
+                <!-- Menu untuk User -->
+                <li class="nav-item {{ request()->is('user*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('user.index') }}">
+                        <i class="fas fa-fw fa-eye"></i>
+                        <span>Lihat Kuitansi</span>
+                    </a>
+                </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -94,26 +94,27 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @if(auth()->user()->role == 'admin')
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
-                                <i class="fas fa-user-circle fa-2x"></i>
-                                @else
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">User</span>
-                                <i class="fas fa-user-circle fa-2x"></i>
-                                @endif
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                        @if(auth()->check())
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @if(auth()->user()->role == 'admin')
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                    @else
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">User</span>
+                                    @endif
+                                    <i class="fas fa-user-circle fa-2x"></i>
                                 </a>
-                            </div>
-                        </li>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
                 <!-- End of Topbar -->

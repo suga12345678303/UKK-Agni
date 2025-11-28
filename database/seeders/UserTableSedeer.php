@@ -15,10 +15,18 @@ class UserTableSedeer extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-    'email' => 'admin@gmail.com',
-    'name' => 'Admin',
-    'password' => bcrypt('123')
-]);
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('123'),
+            'role' => 'admin', // ← TAMBAHKAN INI
+        ]);
 
+        // Tambahkan user biasa juga untuk testing
+        DB::table('users')->insert([
+            'name' => 'User',
+            'email' => 'user@gmail.com',
+            'password' => bcrypt('123'),
+            'role' => 'user', // ← User biasa
+        ]);
     }
 }
