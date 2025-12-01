@@ -21,4 +21,6 @@ Pertama, clone repository dari GitHub dengan perintah berikut:
 
   ## Schema
   ![Image](https://github.com/user-attachments/assets/2144745f-8962-4c47-a5f3-0287bc36501b)
-  
+
+  ## UML
+  ![Image](https://github.com/user-attachments/assets/285e48e1-bf58-49da-9483-0d45aa4bebda)
