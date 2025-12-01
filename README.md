@@ -15,3 +15,10 @@ arsip kuitansi adalah web untuk memasukan data kuitansi secara daring dan juga d
 
 Pertama, clone repository dari GitHub dengan perintah berikut:
 - git clone https://github.com/suga12345678303/UKK-Agni.git
+
+  ## ERD
+  <img width="3090" height="1749" alt="Image" src="https://github.com/user-attachments/assets/e14e2193-e244-4170-8b33-e56abf871f91" />
+
+  ## Schema
+  ![Image](https://github.com/user-attachments/assets/2144745f-8962-4c47-a5f3-0287bc36501b)
+  
